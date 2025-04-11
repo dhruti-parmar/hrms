@@ -1,10 +1,9 @@
 package com.my.hrms.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.hrms.dto.UserDto;
@@ -70,20 +68,12 @@ public class UserController {
     
  // handler method to handle list of users
     @GetMapping("/users")
-    public String users(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(required = false) String search,
-            Model model) {
-        logger.info("Accessing users page with page={}, size={}, search={}", page, size, search);
+    public String users(Model model) {
+        logger.info("Accessing users page");
         
-        Pageable pageable = PageRequest.of(page, size);
-        Page<UserDto> usersPage = userService.findAllUsers(search, pageable);
+        List<UserDto> users = userService.findAllUsers();
         
-        model.addAttribute("users", usersPage.getContent());
-        model.addAttribute("currentPage", page);
-        model.addAttribute("totalPages", usersPage.getTotalPages());
-        model.addAttribute("search", search);
+        model.addAttribute("users",users);
         
         return "users";
     }

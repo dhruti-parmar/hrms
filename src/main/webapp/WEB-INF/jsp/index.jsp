@@ -744,7 +744,7 @@
     </div>
 
     <div class="container copyright text-center mt-4">
-      <p><span>Copyright</span> &copy<strong class="px-1 sitename">TalentWave</strong> <span>, 2024</span></p>      
+      <p><span>Copyright</span> &copy<strong class="px-1 sitename">TalentWave</strong> <span>, 2025</span></p>      
     </div>
 
   </footer>

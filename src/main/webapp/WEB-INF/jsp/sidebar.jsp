@@ -48,7 +48,7 @@
 			<a href="/users" class="active"> User </a>
 		  </li>
 		  <li>
-			<a href="javascript:void(0);"> Role </a>
+			<a href="/roles" class="active"> Role </a>
 		  </li>
 		  <li>
 			<a href="javascript:void(0);"> Department </a>

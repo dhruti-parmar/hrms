@@ -8,8 +8,6 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -75,17 +73,6 @@ public class UserServiceImpl implements UserService {
         return users.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public Page<UserDto> findAllUsers(String search, Pageable pageable) {
-        Page<User> users;
-        if (search != null && !search.isEmpty()) {
-            users = userRepository.findByNameContainingOrEmailContaining(search, pageable);
-        } else {
-            users = userRepository.findAll(pageable);
-        }
-        return users.map(this::convertToDto);
     }
 
     @Override
