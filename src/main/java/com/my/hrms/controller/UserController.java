@@ -13,13 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.hrms.dto.UserDto;
 import com.my.hrms.service.UserService;
 
 @Controller
-//@RequestMapping("/")
+@RequestMapping("/admin")
 public class UserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -75,7 +76,7 @@ public class UserController {
         
         model.addAttribute("users",users);
         
-        return "users";
+        return "admin/users";
     }
 
     @GetMapping("/users/{id}")
@@ -88,7 +89,7 @@ public class UserController {
     @PostMapping("/users/add")
     public String addUser(UserDto userDto) {
         userService.createUser(userDto);
-        return "redirect:/users";
+        return "redirect:/admin/users";
     }
 
     @PutMapping("/users/update")

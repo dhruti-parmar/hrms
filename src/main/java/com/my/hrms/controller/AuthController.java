@@ -52,7 +52,7 @@ public class AuthController {
 			List<UserDto> users = userService.findAllUsers();
 	        model.addAttribute("users", users);
 		}
-		return "dashboard2";
+		return "dashboard";
 	}
        
     

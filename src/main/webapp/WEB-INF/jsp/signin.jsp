@@ -4,11 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="admin/assets/images/favicon.svg" type="image/x-icon" />
     <title>SignIn | TalentWave</title>
 
     <!-- ========== All CSS files linkup ========= -->
-    <%@include file="header_css.jsp"%>
+    <%@include file="common/header_css.jsp"%>
   </head>
   <body>
     <!-- ======== Preloader =========== -->
@@ -59,11 +58,8 @@
             <div class="col-lg-6">
               <div class="signin-wrapper">
                 <div class="form-wrapper">
-                  <h6 class="mb-15">Sign In Form</h6>
-                  <p class="text-sm mb-25">
-                    Start creating the best possible user experience for you
-                    customers.
-                  </p>
+                  <h1 class="mb-15">Sign In</h1>
+                  <hr>
                   <form action="/login" method = "post">
                     <div class="row">
                       <div class="col-12">
@@ -117,12 +113,12 @@
       <!-- ========== signin-section end ========== -->
 
       <!-- ========== footer start =========== -->
-      <%@include file="footer.jsp"%>
+      <%@include file="common/footer.jsp"%>
       <!-- ========== footer end =========== -->
     </main>
     <!-- ======== main-wrapper end =========== -->
 
     <!-- ========= All Javascript files linkup ======== -->
-    <%@include file="footer_js.jsp"%>
+    <%@include file="common/footer_js.jsp"%>
   </body>
 </html>

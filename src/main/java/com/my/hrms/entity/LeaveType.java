@@ -8,25 +8,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
-@Table(name="roles")
-public class Role
-{
+@Table(name = "leave_types")
+public class LeaveType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable=false, unique=true)
-    private String name;
+    
+    @Column(nullable = false, unique = true)
+    private String type; // PL, SL, LWP
+    
+    private String description;
     
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;

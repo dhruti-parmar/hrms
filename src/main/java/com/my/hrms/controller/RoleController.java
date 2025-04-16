@@ -11,12 +11,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.my.hrms.dto.RoleDto;
 import com.my.hrms.service.RoleService;
 
 @Controller
+@RequestMapping("/admin")
 public class RoleController {
     
     private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
@@ -30,7 +32,7 @@ public class RoleController {
     public String roles(Model model) {
         logger.info("Accessing roles page");
         model.addAttribute("roles", roleService.findAllRoles());
-        return "roles";
+        return "admin/roles";
     }
 
     @GetMapping("/roles/{id}")
@@ -43,7 +45,7 @@ public class RoleController {
     @PostMapping("/roles/add")
     public String addRole(RoleDto roleDto) {
         roleService.createRole(roleDto);
-        return "redirect:/roles";
+        return "redirect:/admin/roles";
     }
 
     @PutMapping("/roles/update")

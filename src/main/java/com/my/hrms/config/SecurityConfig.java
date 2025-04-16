@@ -28,9 +28,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     	http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests((authorize) ->
-//                authorize.anyRequest().permitAll()
-                        authorize.requestMatchers("/","/index","/dashboard","/register","/WEB-INF/**","/assets/**","/admin/**","/users","/users/**","/roles/**").permitAll()
-                                .requestMatchers("/users/add","/users/update","/users/delete/**").hasRole("ADMIN") 
+                authorize.anyRequest().permitAll()
+//                        authorize.requestMatchers("/","/index","/dashboard","/register","/WEB-INF/**","/common/**","/employee/**","/assets/**","/admin/**","/users","/users/**","/roles/**").permitAll()
+//                                .requestMatchers("/users/add","/users/update","/users/delete/**","/admin/**").hasRole("ADMIN") 
+//                                .requestMatchers("/employee/**","/employee/profile/**").hasRole("USER")
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

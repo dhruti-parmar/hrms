@@ -1,7 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@include file="../common/init.jsp"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,17 +6,13 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="admin/assets/images/logo.png" type="image/x-icon" />
-    <title>Roles | TalentWave</title>
+    <title>Users | TalentWave</title>
     
     <sec:csrfMetaTags/>
 
     <!-- ========== All CSS files linkup ========= -->
-    <%@include file="header_css.jsp"%>
+    <%@include file="../common/header_css.jsp"%>
     
-    <!-- DataTable CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap5.min.css">
   </head>
   <body>
     <!-- ======== Preloader =========== -->
@@ -29,13 +22,13 @@
     <!-- ======== Preloader =========== -->
 
     <!-- ======== sidebar-nav start =========== -->
-    <%@include file="sidebar.jsp"%>
+    <%@include file="../common/sidebar.jsp"%>
     <!-- ======== sidebar-nav end =========== -->
 
     <!-- ======== main-wrapper start =========== -->
     <main class="main-wrapper">
       <!-- ========== header start ========== -->
-      <%@include file="header.jsp"%>
+      <%@include file="../common/header.jsp"%>
       <!-- ========== header end ========== -->
 
       <!-- ========== section start ========== -->
@@ -46,7 +39,7 @@
             <div class="row align-items-center">
               <div class="col-md-6">
                 <div class="title">
-                  <h2>Roles List</h2>
+                  <h2>Users List</h2>
                 </div>
               </div>
               <!-- end col -->
@@ -58,7 +51,7 @@
                         <a href="/dashboard">Dashboard</a>
                       </li>
                       <li class="breadcrumb-item active" aria-current="page">
-                        Roles
+                        Users
                       </li>
                     </ol>
                   </nav>
@@ -70,47 +63,61 @@
           </div>
           <!-- ========== title-wrapper end ========== -->
 
-          <!-- Add Role Section -->
+          <!-- Add User Section -->
           <div class="row mb-30">
+<!--             <div class="col-lg-6"> -->
+<!--               <div class="search-style-2"> -->
+<!--                 <form action="/users" method="get"> -->
+<%--                   <input type="text" name="search" placeholder="Search users..." value="${param.search}" /> --%>
+<!--                   <button type="submit"><i class="lni lni-search-alt"></i></button> -->
+<!--                 </form> -->
+<!--               </div> -->
+<!--             </div> -->
             <div class="col-lg-12 text-end">
-              <button class="main-btn primary-btn btn-hover" data-bs-toggle="modal" data-bs-target="#addRoleModal">
-                <i class="lni lni-plus"></i> Add New Role
+              <button class="main-btn primary-btn btn-hover" data-bs-toggle="modal" data-bs-target="#addUserModal">
+                <i class="lni lni-plus"></i> Add New User
               </button>
             </div>
           </div>
 
-          <!-- Roles Table -->
+          <!-- Users Table -->
           <div class="tables-wrapper">
             <div class="row">
               <div class="col-lg-12">
                 <div class="card-style mb-30">
                   <div class="table-wrapper table-responsive">
-                    <table id="rolesTable" class="table">
+                    <table id="usersTable" class="table">
                       <thead>
                         <tr>
+                          <th><h6>Index</h6></th>
                           <th><h6>Name</h6></th>
+                          <th><h6>Email</h6></th>
                           <th><h6>Action</h6></th>
                         </tr>
                       </thead>
                       <tbody>
                         <c:choose>
-                          <c:when test="${empty roles}">
+                          <c:when test="${empty users}">
                             <tr>
-                              <td colspan="2" class="text-center">No roles found</td>
+                              <td colspan="3" class="text-center">No users found</td>
                             </tr>
                           </c:when>
                           <c:otherwise>
-                            <c:forEach var="role" items="${roles}">
+                            <c:forEach var="user" items="${users}">
                               <tr>
+                              	<td></td>
                                 <td>
-                                  <p class="text-sm">${role.name}</p>
+                                  <p class="text-sm">${user.name}</p>
+                                </td>
+                                <td>
+                                  <p class="text-sm">${user.email}</p>
                                 </td>
                                 <td>
                                   <div class="action">
-                                    <button class="text-primary me-2" onclick="editRole(${role.id})">
+                                    <button class="text-primary me-2" onclick="editUser(${user.id})">
                                       <i class="lni lni-pencil"></i>
                                     </button>
-                                    <button class="text-danger" onclick="deleteRole(${role.id})">
+                                    <button class="text-danger" onclick="deleteUser(${user.id})">
                                       <i class="lni lni-trash-can"></i>
                                     </button>
                                   </div>
@@ -126,62 +133,101 @@
               </div>
             </div>
           </div>
+
+          <!-- Pagination -->
+<!--           <div class="pagination-wrapper"> -->
+<!--             <nav aria-label="Page navigation"> -->
+<!--               <ul class="pagination"> -->
+<%--                 <c:forEach begin="1" end="${totalPages}" var="i"> --%>
+<%--                   <li class="page-item ${currentPage == i ? 'active' : ''}"> --%>
+<%--                     <a class="page-link" href="/users?page=${i}&search=${param.search}">${i}</a> --%>
+<!--                   </li> -->
+<%--                 </c:forEach> --%>
+<!--               </ul> -->
+<!--             </nav> -->
+<!--           </div> -->
         </div>
         <!-- end container -->
       </section>
       <!-- ========== section end ========== -->
 
       <!-- ========== footer start =========== -->
-      <%@include file="footer.jsp"%>
+      <%@include file="../common/footer.jsp"%>
       <!-- ========== footer end =========== -->
     </main>
     <!-- ======== main-wrapper end =========== -->
-    <%@include file="footer_js.jsp"%>
+    <%@include file="../common/footer_js.jsp"%>
     
-    <!-- Add Role Modal -->
-    <div class="modal fade" id="addRoleModal" tabindex="-1" aria-labelledby="addRoleModalLabel" aria-hidden="true">
+    <!-- Add User Modal -->
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="addRoleModalLabel">Add New Role</h5>
+            <h5 class="modal-title" id="addUserModalLabel">Add New User</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="addRoleForm" action="/roles/add" method="post">
+            <form id="addUserForm" action="/admin/users/add" method="post">
               <div class="mb-3">
-                <label for="name" class="form-label">Role Name</label>
+                <label for="name" class="form-label">Name</label>
                 <input type="text" class="form-control" id="name" name="name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+              </div>
+              <div class="mb-3">
+                <label for="role" class="form-label">Role</label>
+                <select class="form-control" id="role" name="role" required>
+                  <option value="ROLE_ADMIN">Admin</option>
+                  <option value="ROLE_USER">User</option>
+                </select>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" form="addRoleForm" class="btn btn-primary">Add Role</button>
+            <button type="submit" form="addUserForm" class="btn btn-primary">Add User</button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Edit Role Modal -->
-    <div class="modal fade" id="editRoleModal" tabindex="-1" aria-labelledby="editRoleModalLabel" aria-hidden="true">
+    <!-- Edit User Modal -->
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="editRoleModalLabel">Edit Role</h5>
+            <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            <form id="editRoleForm">
-              <input type="hidden" id="editRoleId" name="id">
+            <form id="editUserForm">
+              <input type="hidden" id="editUserId" name="id">
               <div class="mb-3">
-                <label for="editName" class="form-label">Role Name</label>
+                <label for="editName" class="form-label">Name</label>
                 <input type="text" class="form-control" id="editName" name="name" required>
+              </div>
+              <div class="mb-3">
+                <label for="editEmail" class="form-label">Email</label>
+                <input type="email" class="form-control" id="editEmail" name="email" required>
+              </div>
+              <div class="mb-3">
+                <label for="editRole" class="form-label">Role</label>
+                <select class="form-control" id="editRole" name="role" required>
+                  <option value="ROLE_ADMIN">Admin</option>
+                  <option value="ROLE_USER">User</option>
+                </select>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" onclick="submitEditForm()">Update Role</button>
+            <button type="button" class="btn btn-primary" onclick="submitEditForm()">Update User</button>
           </div>
         </div>
       </div>
@@ -196,26 +242,26 @@
     <script>
     $(document).ready(function() {
         // Initialize DataTable
-        $('#rolesTable').DataTable({
+        $('#usersTable').DataTable({
             responsive: true,
             language: {
                 search: "",
-                searchPlaceholder: "Search roles...",
+                searchPlaceholder: "Search users...",
                 lengthMenu: "Show _MENU_ entries",
                 info: "Showing _START_ to _END_ of _TOTAL_ entries",
                 infoEmpty: "Showing 0 to 0 of 0 entries",
                 infoFiltered: "(filtered from _MAX_ total entries)",
-                paginate: {
-                    first: "First",
-                    last: "Last",
-                    next: "Next",
-                    previous: "Previous"
+                paginate:{
+                	first: "First",
+                	last: "Last",
+                	next: "next",
+                	previous: "previous"
                 }
             },
             dom: '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             pageLength: 10,
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            order: [[0, 'asc']],
+            order: [[1, 'asc']],
             processing: true,
             serverSide: false,
             searching: true,
@@ -223,7 +269,15 @@
             info: true,
             columnDefs: [
             	{
-            		targets: 1,
+            		targets: 0, // Target the first column (index column)
+                    searchable: false, // Disable searching for this column
+                    orderable: false, // Disable ordering for this column
+                    render: function(data, type, row, meta) {
+                      return meta.row + 1; // Auto-increment index based on row number
+                    }
+            	},
+            	{
+            		targets: 2,
             		searchable: false,
             		orderable: false
             	}
@@ -250,49 +304,55 @@
         } else {
             console.error('CSRF meta tags not found');
         }
+
     });
 
-    function editRole(roleId) {
-        console.log('Edit role called with ID:', roleId);
-        // Fetch role details and populate the edit form
-        fetch(`/roles/\${roleId}`, {
+    function editUser(userId) {
+        console.log('Edit user called with ID:', userId);
+        // Fetch user details and populate the edit form
+        fetch(`/admin/users/\${userId}`, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
             })
             .then(response => {
-                console.log('Edit role response status:', response.status);
+                console.log('Edit user response status:', response.status);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 return response.json();
             })
-            .then(role => {
-                console.log('Role data received:', role);
-                document.getElementById('editRoleId').value = role.id;
-                document.getElementById('editName').value = role.name;
-                $('#editRoleModal').modal('show');
+            .then(user => {
+                console.log('User data received:', user);
+                document.getElementById('editUserId').value = user.id;
+                document.getElementById('editName').value = user.name;
+                document.getElementById('editEmail').value = user.email;
+                document.getElementById('editRole').value = user.role;
+                $('#editUserModal').modal('show');
             })
             .catch(error => {
-                console.error('Error fetching role:', error);
-                alert('Error fetching role details: ' + error.message);
+                console.error('Error fetching user:', error);
+                alert('Error fetching user details: ' + error.message);
             });
-    }
+    };
 
     function submitEditForm() {
         console.log('Submit edit form called');
-        const form = document.getElementById('editRoleForm');
+        const form = document.getElementById('editUserForm');
         const formData = {
             id: form.id.value,
-            name: form.name.value
+            name: form.name.value,
+            email: form.email.value,
+            role: form.role.value
         };
 
         console.log('Sending update request with data:', formData);
 
-        fetch('/roles/update', {
+        fetch('/admin/users/update', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
+                     
                 },
                 body: JSON.stringify(formData)
             })
@@ -308,22 +368,23 @@
             })
             .then(() => {
                 console.log('Update successful');
-                $('#editRoleModal').modal('hide');
+                $('#editUserModal').modal('hide');
                 location.reload();
             })
             .catch(error => {
-                console.error('Error updating role:', error);
-                alert('Error updating role: ' + error.message);
+                console.error('Error updating user:', error);
+                alert('Error updating user: ' + error.message);
             });
     }
 
-    function deleteRole(roleId) {
-        console.log('Delete role called with ID:', roleId);
-        if (confirm('Are you sure you want to delete this role?')) {
-            fetch(`/roles/\${roleId}`, {
+    function deleteUser(userId) {
+        console.log('Delete user called with ID:', userId);
+        if (confirm('Are you sure you want to delete this user?')) {
+            fetch(`/admin/users/\${userId}`, {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
+                         
                     }
                 })
                 .then(response => {
@@ -341,8 +402,8 @@
                     location.reload();
                 })
                 .catch(error => {
-                    console.error('Error deleting role:', error);
-                    alert('Error deleting role: ' + error.message);
+                    console.error('Error deleting user:', error);
+                    alert('Error deleting user: ' + error.message);
                 });
         }
     }

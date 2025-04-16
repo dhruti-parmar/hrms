@@ -7,27 +7,25 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
-@NoArgsConstructor
-@AllArgsConstructor
+@Data
 @Entity
-@Table(name="roles")
-public class Role
-{
+@Table(name = "leave_balances")
+public class LeaveBalance {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Integer plBalance;
+    private Integer plYearlyLimit;
+    private Integer slBalance;
+    private Integer slYearlyLimit;
+    private Integer lwpBalance;
+    private Integer lwpYearlyLimit;
 
-    @Column(nullable=false, unique=true)
-    private String name;
-    
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
@@ -39,4 +37,8 @@ public class Role
 
     @Column(name = "updated_by")
     private String updatedBy;
+    
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
 }
