@@ -213,4 +213,19 @@ public class UserServiceImpl implements UserService {
         
         return userDto;
     }
+
+    @Override
+    public List<UserDto> findUsersWithRoleUser() {
+        return userRepository.findAll().stream()
+                .filter(user -> user.getRoles().stream()
+                        .anyMatch(role -> role.getName().equals("ROLE_USER")))
+                .map(user -> {
+                    UserDto userDto = new UserDto();
+                    userDto.setId(user.getId());
+                    userDto.setName(user.getName());
+                    userDto.setEmail(user.getEmail());
+                    return userDto;
+                })
+                .collect(Collectors.toList());
+    }
 }

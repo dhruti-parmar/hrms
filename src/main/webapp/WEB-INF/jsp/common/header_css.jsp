@@ -11,10 +11,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/assets/css/plugin/dataTables.bootstrap5.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/assets/css/plugin/responsive.bootstrap5.min.css">
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/admin/assets/css/plugin/bootstrap-datepicker.min.css">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/assets/css/plugin/font-awesome.min.css"> --%>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/assets/css/plugin/bootstrap-datepicker.min.css"> --%>
+<%-- <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/admin/assets/css/plugin/font-awesome.min.css"> --%>
 
 <script src="${pageContext.request.contextPath}/admin/assets/js/jquery.min.js"></script>
-<script src="${pageContext.request.contextPath}/admin/assets/js/plugin/bootstrap-datepicker.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/admin/assets/js/plugin/bootstrap-datepicker.min.js"></script> --%>
 
-<script src="${pageContext.request.contextPath}/admin/assets/js/bootstrap.bundle.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/admin/assets/js/bootstrap.bundle.min.js"></script> --%>

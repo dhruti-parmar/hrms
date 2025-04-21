@@ -124,20 +124,20 @@
 				<a href="/admin/roles"> Role </a>
 			  </li>
 			  <li>
-				<a href="javascript:void(0);"> Department </a>
+				<a href="/admin/department"> Department </a>
 			  </li>
 			   <li>
-				<a href="javascript:void(0);"> Designation </a>
+				<a href="/admin/designation"> Designation </a>
 			  </li>
 			  <li>
-				<a href="javascript:void(0);"> Activities </a>
+				<a href="/admin/leave-types"> Leave Type </a>
 			  </li>
-			  <li>
-				<a href="javascript:void(0);"> Holidays </a>
-			  </li>             
-			  <li>
-				<a href="javascript:void(0);"> Events </a>
-			  </li>
+<!-- 			  <li> -->
+<!-- 				<a href="javascript:void(0);"> Holidays </a> -->
+<!-- 			  </li>              -->
+<!-- 			  <li> -->
+<!-- 				<a href="javascript:void(0);"> Events </a> -->
+<!-- 			  </li> -->
 			</ul>
 		  </li>
 		  <li class="nav-item nav-item-has-children">
@@ -162,7 +162,7 @@
 			</a>
 			<ul id="ddmenu_2" class="collapse dropdown-nav">
 			  <li>
-				<a href="javascript:void(0);" class="active"> Employee list </a>
+				<a href="/admin/employees"> Employee list </a>
 			  </li>
 			  <li>
 				<a href="/employee/leave"> Employee leaves </a>

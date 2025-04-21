@@ -9,6 +9,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import lombok.Data;
 
@@ -36,4 +38,20 @@ public class Department {
     
 	@OneToMany(mappedBy = "department")
 	private List<Employee> employees;
+	
+	@PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+        updatedAt = LocalDateTime.now();
+        // Get the current user from SecurityContext
+        createdBy = "1"; 
+        updatedBy = "1"; 
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+        // Get the current user from SecurityContext
+        updatedBy = "1"; // This should be replaced with actual logged-in user
+    }
 }

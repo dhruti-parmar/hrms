@@ -18,4 +18,6 @@ public interface UserService {
     UserDto updateUser(UserDto userDto);
 
     void deleteUser(Long id);
+    
+    List<UserDto> findUsersWithRoleUser();
 }

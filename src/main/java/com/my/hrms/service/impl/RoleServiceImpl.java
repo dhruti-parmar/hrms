@@ -77,4 +77,10 @@ public class RoleServiceImpl implements RoleService {
         roleDto.setName(role.getName());
         return roleDto;
     }
+
+	@Override
+	public Role findByName(String name) {
+		// TODO Auto-generated method stub
+		return roleRepository.findByName(name);
+	}
 }

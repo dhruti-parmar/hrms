@@ -19,10 +19,10 @@ public class DepartmentController {
     @Autowired
     private DepartmentService departmentService;
 
-    @GetMapping("/")
+    @GetMapping
     public String viewDepartmentsPage(Model model) {
         model.addAttribute("departments", departmentService.getAllDepartments());
-        return "admin/departments";
+        return "admin/department";
     }
 
     @GetMapping("/create-department")
@@ -34,18 +34,18 @@ public class DepartmentController {
     @PostMapping("/create-department")
     public String createDepartment(@ModelAttribute Department department) {
         departmentService.createDepartment(department);
-        return "redirect:/admin/departments";
+        return "redirect:/admin/department";
     }
     
     @PostMapping("/update-department")
     public String updateDepartment(@ModelAttribute Department department) {
         departmentService.updateDepartment(department);
-        return "redirect:/admin/departments";
+        return "redirect:/admin/department";
     }
 
     @GetMapping("/delete-department/{id}")
     public String deleteDepartment(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
-        return "redirect:/admin/departments";
+        return "redirect:/admin/department";
     } 
 }

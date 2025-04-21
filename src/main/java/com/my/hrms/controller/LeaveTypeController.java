@@ -19,7 +19,7 @@ public class LeaveTypeController {
     @Autowired
     private LeaveTypeService leaveTypeService;
 
-    @GetMapping("/")
+    @GetMapping
     public String viewLeaveTypesPage(Model model) {
         model.addAttribute("leaveTypes", leaveTypeService.getAllLeaveTypes());
         return "admin/leave-types";
@@ -36,7 +36,13 @@ public class LeaveTypeController {
         leaveTypeService.createLeaveType(leaveType);
         return "redirect:/admin/leave-types";
     }
-
+    
+    @PostMapping("/update-leave-type")
+    public String updateLeaveType(@ModelAttribute LeaveType leaveType) {
+        leaveTypeService.updateLeaveType(leaveType);
+        return "redirect:/admin/leave-types";
+    }
+    
     @GetMapping("/delete-leave-type/{id}")
     public String deleteLeaveType(@PathVariable Long id) {
         leaveTypeService.deleteLeaveType(id);
