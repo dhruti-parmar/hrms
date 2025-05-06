@@ -61,168 +61,153 @@
 
           <div class="row">
             <div class="col-lg-6">
+              <!-- View Profile Section -->
               <div class="card-style settings-card-1 mb-30">
-                <div class="title mb-30 d-flex justify-content-between align-items-center">
-                  <h6>My Profile</h6>
-                  <button class="border-0 bg-transparent">
-                    <i class="lni lni-pencil-alt"></i>
-                  </button>
+                <div class="title mb-30">
+                  <h6>View Profile</h6>
                 </div>
                 <div class="profile-info">
                   <div class="d-flex align-items-center mb-30">
                     <div class="profile-image">
                       <img src="${pageContext.request.contextPath}/admin/assets/images/profile/profile-1.png" alt="" />
-                      <div class="update-image">
-                        <input type="file" />
-                        <label for=""><i class="lni lni-cloud-upload"></i></label>
-                      </div>
                     </div>
                     <div class="profile-meta">
-                      <h5 class="text-bold text-dark mb-10">John Doe</h5>
-                      <p class="text-sm text-gray">Web & UI/UX Design</p>
+                      <h5 class="text-bold text-dark mb-10">${employee.name}</h5>
+                      <p class="text-sm text-gray">${employee.designation.name}</p>
                     </div>
                   </div>
+                  
+                  <!-- Basic Information -->
+                  <h6 class="mb-20">Basic Information</h6>
                   <div class="input-style-2">
-                    <label>EmployeeCode</label>
-                    <input type="employeeCode" placeholder="Employee Code" value="E01"  disabled/>
-					<span class="icon"> <i class="lni lni-lock"></i> </span>
+                    <label>Employee Code</label>
+                    <input type="text" value="${employee.id}" readonly />
+                    <span class="icon"> <i class="lni lni-lock"></i> </span>
+                  </div>
+                  <div class="input-style-2">
+                    <label>Name</label>
+                    <input type="text" value="${employee.name}" readonly />
+                    <span class="icon"> <i class="lni lni-lock"></i> </span>
                   </div>
                   <div class="input-style-2">
                     <label>Email</label>
-                    <input type="email" placeholder="admin@example.com" value="admin@example.com"  disabled/>
-					<span class="icon"> <i class="lni lni-lock"></i> </span>
+                    <input type="email" value="${employee.email}" readonly />
+                    <span class="icon"> <i class="lni lni-lock"></i> </span>
                   </div>
-                  <div class="input-style-1">
-                    <label>Password</label>
-                    <input type="password" value="admin" />
-                  </div>                  
-                  <div class="input-style-1">
-                    <label>PhoneNo</label>
-                    <input type="text" placeholder="www.uideck.com" value="www.uideck.com" />
-                  </div>
-                  <div class="input-style-1">
-                    <label>Linkdin URL</label>
-                    <input type="text" placeholder="www.uideck.com" value="www.uideck.com" />
-                  </div>
-
-                  <div class="input-style-1">
-                    <label>About Me</label>
-                    <textarea placeholder="Write your bio here" rows="4">
-  Crafted for – Business, Startup, SaaS, Apps, Event, Software, Agency, Resume and Portfolio. All Landing Pages comes with clean design and responsive layout. Also packed with all essential sections, elements, and features you need to launch</textarea>
-                  </div>
-                </div>
-              </div>
-              <!-- end card -->
-			  
-				<!-- ======= select style start ======= -->
-                <div class="card-style mb-30">
-                  <h6 class="mb-25">Education</h6>
-                  <div class="select-style-1">
-                    <div class="select-position">
-                      <label>Degree</label>
-                      <select>
-                        <option value="">10th</option>
-                        <option value="">12th</option>
-                        <option value="" selected>Graduate</option>
-                        <option value="">Post Graduate</option>
-                      </select>
-                    </div>
-                  </div>
-                  <!-- end select -->
-                   <div class="input-style-2">
-                    <label>Specialization</label>
-                    <input type="text" placeholder="Specialized Degree" value="Computer Engineering" disabled/>
-					<span class="icon"> <i class="lni lni-lock"></i> </span>
-                  </div>
-                  <!-- end select -->
-                </div>
-                <!-- end card -->
-            </div>
-            <!-- end col -->
-			<div class="col-lg-6">
-				<div class="card-style mb-30">
-                  <h6 class="mb-25">Skills</h6>
-                  <div class="input-style-1">
-                    <label>Message</label>
-                    <textarea placeholder="Message" rows="4">
-Photoshop
-Wordpress
-HTML 5
-Angular
-					</textarea>
-                  </div>
-                </div>
-				<div class="card-style mb-30">
-                  <h6 class="mb-25">Role</h6>
                   <div class="input-style-2">
                     <label>Department</label>
-                    <input type="text" placeholder="Department" value="Software Development" disabled/>
-					<span class="icon"> <i class="lni lni-lock"></i> </span>
+                    <input type="text" value="${employee.department.name}" readonly />
+                    <span class="icon"> <i class="lni lni-lock"></i> </span>
                   </div>
                   <div class="input-style-2">
                     <label>Designation</label>
-                    <input type="text" placeholder="Designation" value="Junior Software Developer" disabled/>
-					<span class="icon"> <i class="lni lni-lock"></i> </span>
+                    <input type="text" value="${employee.designation.name}" readonly />
+                    <span class="icon"> <i class="lni lni-lock"></i> </span>
+                  </div>
+                  
+                  <!-- Contact Information -->
+                  <h6 class="mb-20 mt-30">Contact Information</h6>
+                  <div class="input-style-2">
+                    <label>Phone</label>
+                    <input type="text" value="${employee.phone}" readonly />
+                  </div>
+                  <div class="input-style-2">
+                    <label>Address</label>
+                    <input type="text" value="${employee.address}" readonly />
+                  </div>
+<!--                   <div class="input-style-2"> -->
+<!--                     <label>LinkedIn URL</label> -->
+<%--                     <input type="text" value="${employee.linkedinUrl}" readonly /> --%>
+<!--                   </div> -->
+                  
+                  <!-- Education -->
+                  <h6 class="mb-20 mt-30">Education</h6>
+                  <div class="input-style-2">
+                    <label>Degree</label>
+                    <input type="text" value="${employee.degree}" readonly />
+                  </div>
+                  <div class="input-style-2">
+                    <label>Specialization</label>
+                    <input type="text" value="${employee.specialization}" readonly />
+                  </div>
+                  
+                  <!-- Skills -->
+                  <h6 class="mb-20 mt-30">Skills</h6>
+                  <div class="input-style-2">
+                    <label>Skills</label>
+                    <textarea readonly rows="4">${employee.skills}</textarea>
+                  </div>
+                  
+                  <!-- About Me -->
+                  <h6 class="mb-20 mt-30">About Me</h6>
+                  <div class="input-style-2">
+                    <label>About Me</label>
+                    <textarea readonly rows="4">${employee.aboutMe}</textarea>
                   </div>
                 </div>
-				<div class="card-style settings-card-2 mb-30">
+              </div>
+            </div>
+            
+            <!-- Edit Profile Section -->
+            <div class="col-lg-6">
+              <div class="card-style settings-card-1 mb-30">
                 <div class="title mb-30">
-                  <h6>Account Setting</h6>
+                  <h6>Edit Profile</h6>
                 </div>
-                <form action="#">
-                  <div class="row">
-                    <div class="col-12">
-                      <div class="input-style-1">
-                        <label>Full Name</label>
-                        <input type="text" placeholder="Full Name" />
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="input-style-1">
-                        <label>Email</label>
-                        <input type="email" placeholder="Email" />
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="input-style-1">
-                        <label>Company</label>
-                        <input type="text" placeholder="Company" />
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <div class="input-style-1">
-                        <label>Address</label>
-                        <input type="text" placeholder="Address" />
-                      </div>
-                    </div>
-                    <div class="col-xxl-6">
-                      <div class="input-style-1">
-                        <label>City</label>
-                        <input type="text" placeholder="City" />
-                      </div>
-                    </div>
-                    <div class="col-xxl-6">
-                      <div class="input-style-1">
-                        <label>Zip Code</label>
-                        <input type="text" placeholder="Zip Code" />
-                      </div>
-                    </div>                    
-                    <div class="col-12">
-                      <div class="input-style-1">
-                        <label>About Me</label>
-                        <textarea placeholder="Type here" rows="6"></textarea>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="main-btn primary-btn btn-hover">
-                        Update Profile
-                      </button>
+                <form action="${pageContext.request.contextPath}/employee/profile/update" method="post">
+                  <input type="hidden" name="id" value="${employee.id}" />
+                  
+                  <!-- Contact Information -->
+                  <h6 class="mb-20">Contact Information</h6>
+                  <div class="input-style-1">
+                    <label>Phone</label>
+                    <input type="text" name="phone" value="${employee.phone}" />
+                  </div>
+                  <div class="input-style-1">
+                    <label>Address</label>
+                    <input type="text" name="address" value="${employee.address}" />
+                  </div>
+<!--                   <div class="input-style-1"> -->
+<!--                     <label>LinkedIn URL</label> -->
+<%--                     <input type="text" name="linkedinUrl" value="${employee.linkedinUrl}" /> --%>
+<!--                   </div> -->
+                  
+                  <!-- Education -->
+                  <h6 class="mb-20 mt-30">Education</h6>
+                  <div class="select-style-1">
+                    <div class="select-position">
+                      <label>Degree</label>
+                      <select name="degree">
+                        <option value="10th" ${employee.degree == '10th' ? 'selected' : ''}>10th</option>
+                        <option value="12th" ${employee.degree == '12th' ? 'selected' : ''}>12th</option>
+                        <option value="Graduate" ${employee.degree == 'Graduate' ? 'selected' : ''}>Graduate</option>
+                        <option value="Post Graduate" ${employee.degree == 'Post Graduate' ? 'selected' : ''}>Post Graduate</option>
+                      </select>
                     </div>
                   </div>
+                  <div class="input-style-1">
+                    <label>Specialization</label>
+                    <input type="text" name="specialization" value="${employee.specialization}" placeholder="Enter your specialization" />
+                  </div>
+                  
+                  <!-- Skills -->
+                  <h6 class="mb-20 mt-30">Skills</h6>
+                  <div class="input-style-1">
+                    <label>Skills</label>
+                    <textarea name="skills" placeholder="Enter your skills (one per line)" rows="4">${employee.skills}</textarea>
+                  </div>
+                  
+                  <!-- About Me -->
+                  <h6 class="mb-20 mt-30">About Me</h6>
+                  <div class="input-style-1">
+                    <label>About Me</label>
+                    <textarea name="aboutMe" placeholder="Write your bio here" rows="4">${employee.aboutMe}</textarea>
+                  </div>
+                  
+                  <button type="submit" class="main-btn primary-btn btn-hover">Update Profile</button>
                 </form>
               </div>
-              <!-- end card -->
-			</div>
+            </div>
           </div>
           <!-- end row -->
         </div>

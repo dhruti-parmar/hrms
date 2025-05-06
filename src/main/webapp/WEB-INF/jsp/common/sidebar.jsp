@@ -165,7 +165,7 @@
 				<a href="/admin/employees"> Employee list </a>
 			  </li>
 			  <li>
-				<a href="/employee/leave"> Employee leaves </a>
+				<a href="/admin/leaves"> Employee leaves </a>
 			  </li>
 			  <li>
 				<a href="javascript:void(0);"> Timesheet </a>
@@ -177,7 +177,7 @@
 				<a href="javascript:void(0);"> Training </a>
 			  </li>
 			  <li>
-				<a href="javascript:void(0);"> Awards </a>
+				<a href="/admin/awards"> Awards </a>
 			  </li>
 			</ul>
 		  </li>

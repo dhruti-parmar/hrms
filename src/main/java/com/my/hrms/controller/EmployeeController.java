@@ -29,9 +29,13 @@ public class EmployeeController {
 
     @PostMapping("/profile/update")
     public String updateProfile(@ModelAttribute Employee employee, Principal principal) {
+        // Verify that the employee is updating their own profile
         Employee existingEmployee = employeeService.getEmployeeByEmail(principal.getName());
-        existingEmployee.setName(employee.getName());
-        employeeService.updateEmployee(existingEmployee);
-        return "redirect:/employee/profile";
+        if (!existingEmployee.getId().equals(employee.getId())) {
+            throw new RuntimeException("Unauthorized profile update attempt");
+        }
+        
+        employeeService.updateProfile(employee);
+        return "redirect:/employee/profile?success=true";
     }
 }

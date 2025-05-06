@@ -47,6 +47,19 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "designation_id")
     private Designation designation;
+    
+    private String phone;
+    private String address;
+//    private String linkedinUrl;
+    
+    @Column(length = 1000)
+    private String aboutMe;
+    private String degree;
+    private String specialization;
+    
+    @Column(length = 1000)
+    private String skills;
+    
 
     // Getters and Setters
 }

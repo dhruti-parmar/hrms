@@ -25,6 +25,10 @@ public class LeaveTypeService {
     public List<LeaveType> getAllLeaveTypes() {
         return leavetypeRepository.findAll();
     }
+    
+    public LeaveType getLeaveTypeById(Long id) {
+    	return leavetypeRepository.findById(id).orElse(null);
+    }
 
     public LeaveType createLeaveType(LeaveType leavetype) {
         // Set timestamps

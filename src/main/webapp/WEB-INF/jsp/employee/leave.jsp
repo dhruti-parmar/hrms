@@ -63,14 +63,28 @@
           </div>
           <!-- ========== title-wrapper end ========== -->
 
-		 <div class="row">
+          <!-- Alert Messages -->
+<%--           <c:if test="${not empty param.success}"> --%>
+<!--             <div class="alert alert-success alert-dismissible fade show" role="alert"> -->
+<!--               Leave application submitted successfully! -->
+<!--               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+<!--             </div> -->
+<%--           </c:if> --%>
+<%--           <c:if test="${not empty param.error}"> --%>
+<!--             <div class="alert alert-danger alert-dismissible fade show" role="alert"> -->
+<%--               ${param.error} --%>
+<!--               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> -->
+<!--             </div> -->
+<%--           </c:if> --%>
+
+          <div class="row">
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="icon-card mb-30">
                 <div class="icon purple">
                 	PL
                 </div>
                 <div class="content">
-                  <h3 class="text-bold">20</h3>
+                  <h3 class="text-bold">${leaveBalance.plBalance}</h3>
                 </div>
               </div>
               <!-- End Icon Cart -->
@@ -82,7 +96,7 @@
                  SL
                 </div>
                 <div class="content">
-                  <h6 class="text-bold">6</h6>
+                  <h6 class="text-bold">${leaveBalance.slBalance}</h6>
                 </div>
               </div>
               <!-- End Icon Cart -->
@@ -91,10 +105,10 @@
             <div class="col-xl-3 col-lg-4 col-sm-6">
               <div class="icon-card mb-30">
                 <div class="icon orange">
-                 FL
+                 LWP
                 </div>
                 <div class="content">
-                  <h6 class="text-bold">1</h6>
+                  <h6 class="text-bold">${leaveBalance.lwpBalance}</h6>
                 </div>
               </div>
               <!-- End Icon Cart -->
@@ -143,18 +157,18 @@
                         </tr>
                       </thead>
                       <tbody>
-<%--                         <c:choose> --%>
-<%--                           <c:when test="${empty leaveApplications}"> --%>
-<!--                             <tr> -->
-<!--                               <td colspan="8" class="text-center">No leave applied</td> -->
-<!--                             </tr> -->
-<%--                           </c:when> --%>
-<%--                           <c:otherwise> --%>
-<%--                             <c:forEach var="leave" items="${leaveApplications}" varStatus="loop"> --%>
+                        <c:choose>
+                          <c:when test="${empty leaveApplications}">
+                            <tr>
+                              <td colspan="8" class="text-center">No leave applied</td>
+                            </tr>
+                          </c:when>
+                          <c:otherwise>
+                            <c:forEach var="leave" items="${leaveApplications}" varStatus="loop">
                               <tr>
-                              	<td>
-               					  <p class="text-sm">${loop.count}</p>
-                              	</td>
+                                <td>
+                                  <p class="text-sm">${loop.count}</p>
+                                </td>
                                 <td>
                                   <p class="text-sm">${leave.startDate}</p>
                                 </td>
@@ -168,22 +182,24 @@
                                   <p class="text-sm">${leave.comment}</p>
                                 </td>
                                 <td>
-                                  <p class="text-sm">${leave.isHalfDay}</p>
+                                  <p class="text-sm">${leave.isHalfDay ? 'Yes' : 'No'}</p>
                                 </td>
                                 <td>
-                                  <p class="text-sm">${leave.status}</p>
+                                  <span class="status-badge ${leave.status.toLowerCase()}">${leave.status}</span>
                                 </td>
                                 <td>
                                   <div class="action">
-                                    <button class="text-danger" onclick="cancelLeave(${leave.id})">
-                                      <i class="lni lni-trash-can"></i>
-                                    </button>
+                                    <c:if test="${leave.status == 'Pending'}">
+                                      <button class="text-danger" onclick="cancelLeave(${leave.id})">
+                                        <i class="lni lni-trash-can"></i>
+                                      </button>
+                                    </c:if>
                                   </div>
                                 </td>
                               </tr>
-<%--                             </c:forEach> --%>
-<%--                           </c:otherwise> --%>
-<%--                         </c:choose> --%>
+                            </c:forEach>
+                          </c:otherwise>
+                        </c:choose>
                       </tbody>
                     </table>
                   </div>
@@ -214,45 +230,44 @@
           </div>
           <div class="modal-body">
             <form id="leaveForm" action="/employee/leave/add" method="post">
-                 <div class="mb-3">
-                     <label for="leaveType" class="form-label">Leave Type</label>
-                     <select class="form-select" id="leaveType" required>
-                         <option value="" disabled selected>Select Leave Type</option>
-                         <option value="PL">PL</option>
-                         <option value="SL">SL</option>
-                         <option value="Floater">Floater</option>
-                         <option value="Camp off">Camp off</option>
-                         <option value="LWP">LWP</option>
-                     </select>
-                 </div>
-                 <div class="mb-3">
-                     <label for="fromDate" class="form-label">From Date</label>
-                     <input type="text" class="form-control" id="fromDate" required>
-                 </div>
-                 <div class="mb-3">
-                     <label for="toDate" class="form-label">To Date</label>
-                     <input type="text" class="form-control" id="toDate" required>
-                 </div>
-                 <div class="mb-3" id="halfDayToggleContainer" style="display: none;">
-                     <label class="form-label">Is Half Day?</label>
-                     <div class="form-check form-switch">
-                         <input class="form-check-input" type="checkbox" id="isHalfDay">
-                         <label class="form-check-label" for="isHalfDay">Toggle Half Day</label>
-                     </div>
-                 </div>
-                 <div class="mb-3">
-                     <label for="leaveReason" class="form-label">Leave Reason</label>
-                     <textarea class="form-control" id="leaveReason" rows="3" required></textarea>
-                 </div>
-                 <div class="mb-3">
-                     <label for="additionalInfo" class="form-label">Additional Information</label>
-                     <input type="text" class="form-control" id="additionalInfo">
-                 </div>
-             </form>
+              <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+              <div class="mb-3">
+                <label for="leaveType" class="form-label">Leave Type</label>
+                <select class="form-select" id="leaveType" name="leaveType.id" required>
+                  <option value="" disabled selected>Select Leave Type</option>
+                  <c:forEach var="leaveType" items="${leaveTypes}">
+                    <option value="${leaveType.id}" data-balance="${leaveType.type == 'PL' ? leaveBalance.plBalance : 
+                      (leaveType.type == 'SL' ? leaveBalance.slBalance : leaveBalance.lwpBalance)}">
+                      ${leaveType.type} (Balance: ${leaveType.type == 'PL' ? leaveBalance.plBalance : 
+                      (leaveType.type == 'SL' ? leaveBalance.slBalance : leaveBalance.lwpBalance)} days)
+                    </option>
+                  </c:forEach>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="fromDate" class="form-label">From Date</label>
+                <input type="date" class="form-control" id="fromDate" name="startDate" required>
+              </div>
+              <div class="mb-3">
+                <label for="toDate" class="form-label">To Date</label>
+                <input type="date" class="form-control" id="toDate" name="endDate" required>
+              </div>
+              <div class="mb-3" id="halfDayToggleContainer" style="display: none;">
+                <label class="form-label">Is Half Day?</label>
+                <div class="form-check form-switch">
+                  <input class="form-check-input" type="checkbox" id="isHalfDay" name="isHalfDay">
+                  <label class="form-check-label" for="isHalfDay">Toggle Half Day</label>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label for="leaveReason" class="form-label">Leave Reason</label>
+                <textarea class="form-control" id="leaveReason" name="comment" rows="3" required></textarea>
+              </div>
+            </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="submit" form="addLeaveForm" class="btn btn-primary">Add Leave</button>
+            <button type="submit" form="leaveForm" class="btn btn-primary">Apply Leave</button>
           </div>
         </div>
       </div>
@@ -262,61 +277,89 @@
     $(document).ready(function() {
         // Initialize DataTable
         $('#leaveTable').DataTable();
-		
-     // Initialize date pickers
-        $('#fromDate, #toDate').datepicker({
-            format: 'dd/mm/yyyy',
-            todayHighlight: true,
-            autoclose: true
-        });
-
+        
         // Handle date selection
         $('#fromDate, #toDate').on('change', function() {
             const fromDate = new Date($('#fromDate').val());
             const toDate = new Date($('#toDate').val());
-         // Calculate the difference in days
-            const timeDiff = toDate - fromDate;
-            const dayDiff = timeDiff / (1000 * 3600 * 24) + 1; // Adding 1 to include the start day
-
-            // Show or hide the half-day toggle based on the number of days selected
-            if (dayDiff === 1) {
-                $('#halfDayToggleContainer').show();
-            } else {
-                $('#halfDayToggleContainer').hide();
-                $('#isHalfDay').prop('checked', false); // Reset the toggle if more than one day
+            
+            if (fromDate && toDate) {
+                // Calculate the difference in days
+                const timeDiff = toDate - fromDate;
+                const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24)) + 1; // Adding 1 to include the start day
+                
+                // Show or hide the half-day toggle based on the number of days selected
+                if (dayDiff === 1) {
+                    $('#halfDayToggleContainer').show();
+                } else {
+                    $('#halfDayToggleContainer').hide();
+                    $('#isHalfDay').prop('checked', false);
+                }
+                
+                // Check if leave balance is sufficient
+                const selectedLeaveType = $('#leaveType option:selected');
+                const availableBalance = parseInt(selectedLeaveType.data('balance'));
+                
+                if (dayDiff > availableBalance) {
+                    alert(`Warning: You are requesting ${dayDiff} days but only have ${availableBalance} days available.`);
+                }
             }
         });
-
+        
         // Handle form submission
-        $('#submitLeave').on('click', function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            // Validate the form (you can add more validation as needed)
-            if ($('#leaveForm')[0].checkValidity()) {
-                // Gather form data
-                const leaveData = {
-                    leaveType: $('#leaveType').val(),
-                    fromDate: $('#fromDate').val(),
-                    toDate: $('#toDate').val(),
-                    isHalfDay: $('#isHalfDay').is(':checked'),
-                    leaveReason: $('#leaveReason').val(),
-                    additionalInfo: $('#additionalInfo').val()
-                };
-
-                // Here you can send the leaveData to your server or handle it as needed
-                console.log('Leave Application Data:', leaveData);
-
-                // Close the modal after submission
-                $('#leaveModal').modal('hide');
-                // Optionally, reset the form
-                $('#leaveForm')[0].reset();
-                $('#halfDayToggleContainer').hide();
-            } else {
-                // If the form is invalid, show validation messages
-                $('#leaveForm')[0].reportValidity();
+        $('#leaveForm').on('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate leave type
+            const leaveType = $('#leaveType').val();
+            if (!leaveType) {
+                alert('Please select a leave type');
+                return false;
             }
-        });            
+            
+            const fromDate = new Date($('#fromDate').val());
+            const toDate = new Date($('#toDate').val());
+            
+            if (!fromDate || !toDate) {
+                alert('Please select both start and end dates');
+                return false;
+            }
+            
+            if (fromDate > toDate) {
+                alert('Start date cannot be after end date');
+                return false;
+            }
+            
+            const dayDiff = Math.ceil((toDate - fromDate) / (1000 * 3600 * 24)) + 1;
+            const selectedLeaveType = $('#leaveType option:selected');
+            const availableBalance = parseInt(selectedLeaveType.data('balance'));
+            
+            if (dayDiff > availableBalance) {
+                if (!confirm(`You are requesting ${dayDiff} days but only have ${availableBalance} days available. Do you want to proceed?`)) {
+                    return false;
+                }
+            }
+            
+            this.submit();
+        });
     });
+    function cancelLeave(leaveId) {
+        if (confirm('Are you sure you want to cancel this leave application?')) {
+            $.ajax({
+                url: '/employee/leave/cancel/' + leaveId,
+                type: 'POST',
+                data: {
+                    "${_csrf.parameterName}": "${_csrf.token}"
+                },
+                success: function() {
+                    location.reload();
+                },
+                error: function(xhr) {
+                    alert('Error cancelling leave: ' + xhr.responseText);
+                }
+            });
+        }
+    }
     </script>
   </body>
 </html>

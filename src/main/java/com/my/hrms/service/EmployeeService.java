@@ -2,7 +2,6 @@ package com.my.hrms.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -117,8 +116,29 @@ public class EmployeeService {
 
     public Employee updateProfile(Employee employee) {
         Employee existingEmployee = employeeRepository.findById(employee.getId()).orElseThrow();
-        existingEmployee.setName(employee.getName());
-        existingEmployee.setEmail(employee.getEmail());
+        
+        // Only allow updating specific fields
+        existingEmployee.setPhone(employee.getPhone());
+        existingEmployee.setAddress(employee.getAddress());
+//        existingEmployee.setLinkedinUrl(employee.getLinkedinUrl());
+        existingEmployee.setAboutMe(employee.getAboutMe());
+        existingEmployee.setDegree(employee.getDegree());
+        existingEmployee.setSpecialization(employee.getSpecialization());
+        existingEmployee.setSkills(employee.getSkills());
+        
+        // Update timestamp and updated by
+        existingEmployee.setUpdatedAt(LocalDateTime.now());
+        
+        // Get current user ID from SecurityContext
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            User user = userRepository.findByEmail(username);
+            if (user != null) {
+                existingEmployee.setUpdatedBy(String.valueOf(user.getId()));
+            }
+        }
+        
         return employeeRepository.save(existingEmployee);
     }
 }
